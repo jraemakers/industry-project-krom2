@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class diary_input_field extends StatelessWidget {
-  diary_input_field({
+class DiaryInputField extends StatelessWidget {
+  DiaryInputField({
     this.inputFieldColor,
     this.borderRadius,
     this.maxLines,
     this.hintText,
     required this.label,
+    this.controller,
     super.key,
   });
   String label;
@@ -14,16 +15,21 @@ class diary_input_field extends StatelessWidget {
   double? borderRadius;
   int? maxLines;
   String? hintText;
+  TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         label,
-        style: TextStyle(fontSize: 16.0),
+        style: TextStyle(
+          fontSize: 16.0,
+          // color: Colors.white,
+        ),
       ),
       Container(
         child: TextField(
           maxLines: maxLines ?? 1,
+          controller: controller,
           //TODO: define input controller for title
           //BUG: label not working as needed
           //FIXME: customise input field
@@ -33,8 +39,9 @@ class diary_input_field extends StatelessWidget {
             fillColor: inputFieldColor ?? Colors.white,
             hintText: 'Type here...',
             hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 185, 180, 180),
-            ),
+                color: Color.fromARGB(255, 185, 180, 180),
+                fontWeight: FontWeight.w300,
+                fontSize: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
             ),

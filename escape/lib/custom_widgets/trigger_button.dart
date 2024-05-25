@@ -20,18 +20,21 @@ class trigger_button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, right: 10.0),
       child: Container(
-        width: 90,
-        height: 70,
+        width: 80,
+        height: 80,
         child: ElevatedButton(
           style: ButtonStyle(
+            elevation: MaterialStateProperty.all<double>(2),
             backgroundColor: MaterialStateProperty.all<Color>(
-                buttonColor ?? Color.fromARGB(255, 139, 185, 222)),
+              buttonColor ?? Color.fromARGB(255, 134, 177, 230),
+            ),
+
             //FIXME: Remove depricated features and find new way for MaterialStateProperty
             shape: MaterialStateProperty.all<OutlinedBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
             ),
           ),
@@ -42,10 +45,12 @@ class trigger_button extends StatelessWidget {
               Icon(
                 icon,
                 color: Colors.white,
+                size: 19,
               ),
               Text(
                 buttonText,
-                style: TextStyle(color: textColor ?? Colors.white),
+                style:
+                    TextStyle(color: textColor ?? Colors.white, fontSize: 10),
               ),
             ],
           ),
