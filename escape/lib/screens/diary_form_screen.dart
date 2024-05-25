@@ -1,11 +1,41 @@
 import 'package:escape/custom_widgets/diary_input_field.dart';
 import 'package:escape/custom_widgets/trigger_button.dart';
+import 'package:escape/models/SensoryOverloadDiary.dart';
 import 'package:flutter/material.dart';
 
-class DiaryForm extends StatelessWidget {
-  const DiaryForm({
-    super.key,
-  });
+class MyForm extends StatefulWidget {
+  @override
+  DiaryForm createState() => DiaryForm();
+}
+
+class DiaryForm extends State<MyForm> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _durationController = TextEditingController();
+  final TextEditingController _diaryController = TextEditingController();
+  String trigger = 'None';
+
+  String _plannedEvent = '';
+
+  void _handleSubmit() {
+    SenosoryOverloadDiary newEvent = SenosoryOverloadDiary(
+      title: _titleController.text,
+      trigger: trigger,
+      date:
+          '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}',
+      duration: int.tryParse(_durationController.text) ?? 0,
+      diaryNote: _diaryController.text,
+    );
+
+    setState(() {
+      // _eventList.add(newEvent);
+      _plannedEvent =
+          'Title: ${newEvent.title} Trigger: ${newEvent.trigger} Date:  ${newEvent.date} Duration: ${newEvent.duration} Note: ${newEvent.diaryNote}';
+      _titleController.clear();
+      _durationController.clear();
+      _diaryController.clear();
+      print('$_plannedEvent');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +46,20 @@ class DiaryForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Sensory Overload Episode',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(height: 10),
-            diary_input_field(
+            SizedBox(height: 20),
+            DiaryInputField(
               label: 'Title',
+              controller: _titleController,
               //TODO: define controller field
             ),
             SizedBox(height: 20.0),
-            Text('Triggers'),
+            Text(
+              'Triggers',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+              // style: TextStyle(color: Colors.white),
+            ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -74,38 +107,34 @@ class DiaryForm extends StatelessWidget {
             SizedBox(
               height: 20.0,
             ),
-            //HACK: temprarly using text field for date input. Change it to a caledar date time picker
-            TextField(
-              //TODO: Define controller field
-              decoration: InputDecoration(
-                labelText: 'Date',
-              ),
-            ),
+
             SizedBox(height: 20.0),
             //FIXME: update this input
-            diary_input_field(
-              label: 'Duration?',
+            DiaryInputField(
+              label: 'Duration',
+              controller: _durationController,
               //TODO: Define controller field
               //TODO: add drop down lint(minutes, hours, days, weeks)
             ),
 
             SizedBox(height: 20.0),
 
-            diary_input_field(
+            DiaryInputField(
               label: 'How do you feel?',
               maxLines: 4,
+              controller: _diaryController,
             ),
 
             //TODO: implement save button functionality
-
-            SizedBox(height: 20.0),
+            Text('$_plannedEvent'),
+            SizedBox(height: 70.0),
             Center(
               child: Container(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 139, 185, 222)),
+                        Color.fromARGB(255, 134, 177, 230)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -114,7 +143,7 @@ class DiaryForm extends StatelessWidget {
                   ),
                   //TODO: onPressed add form input to storage
                   //HACK: empty function
-                  onPressed: () {},
+                  onPressed: _handleSubmit,
                   child: Text(
                     'Save',
                     style: TextStyle(color: Colors.white),
