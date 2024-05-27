@@ -13,7 +13,7 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    MyForm(), // Replace this with your desired screens
+    MyForm(),
     Container(
         child: Center(
             child: Text(
@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 233, 232, 231),
       appBar: AppBar(
         title: Container(
           margin: EdgeInsets.only(left: 120),

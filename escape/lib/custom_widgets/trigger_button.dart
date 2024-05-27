@@ -38,7 +38,7 @@ class trigger_button extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: () {}, //TODO: implement onPressed method and call
+          onPressed: onPressed, //TODO: implement onPressed method and call
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

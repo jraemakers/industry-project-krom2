@@ -2,6 +2,8 @@ import 'package:escape/custom_widgets/diary_input_field.dart';
 import 'package:escape/custom_widgets/trigger_button.dart';
 import 'package:escape/models/SensoryOverloadDiary.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class MyForm extends StatefulWidget {
   @override
@@ -14,10 +16,34 @@ class DiaryForm extends State<MyForm> {
   final TextEditingController _diaryController = TextEditingController();
   String trigger = 'None';
 
-  String _plannedEvent = '';
+  late SharedPreferences _prefs;
+  List<SenosoryOverloadDiary> _SensoryOverloadList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    _prefs = await SharedPreferences.getInstance();
+    String? eventListJson = _prefs.getString('eventList');
+    if (eventListJson != null) {
+      Iterable list = json.decode(eventListJson);
+      setState(() {
+        _SensoryOverloadList =
+            list.map((model) => SenosoryOverloadDiary.fromJson(model)).toList();
+      });
+    }
+  }
+
+  Future<void> _saveData() async {
+    await _prefs.setString('eventList',
+        json.encode(_SensoryOverloadList.map((e) => e.toJson()).toList()));
+  }
 
   void _handleSubmit() {
-    SenosoryOverloadDiary newEvent = SenosoryOverloadDiary(
+    SenosoryOverloadDiary newSensoryOverload = SenosoryOverloadDiary(
       title: _titleController.text,
       trigger: trigger,
       date:
@@ -27,13 +53,17 @@ class DiaryForm extends State<MyForm> {
     );
 
     setState(() {
-      // _eventList.add(newEvent);
-      _plannedEvent =
-          'Title: ${newEvent.title} Trigger: ${newEvent.trigger} Date:  ${newEvent.date} Duration: ${newEvent.duration} Note: ${newEvent.diaryNote}';
+      _SensoryOverloadList.add(newSensoryOverload);
       _titleController.clear();
       _durationController.clear();
       _diaryController.clear();
-      print('$_plannedEvent');
+    });
+    _saveData();
+  }
+
+  void _handleSightSubmit(String newTrigger) {
+    setState(() {
+      trigger = newTrigger;
     });
   }
 
@@ -58,7 +88,6 @@ class DiaryForm extends State<MyForm> {
               style: TextStyle(
                 fontSize: 16,
               ),
-              // style: TextStyle(color: Colors.white),
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -67,33 +96,33 @@ class DiaryForm extends State<MyForm> {
                 children: [
                   //FIXME: think of switch statement for better outcome
                   trigger_button(
-                    onPressed: () {},
+                    onPressed: () => _handleSightSubmit('Sight'),
                     buttonText: 'Sight',
                     icon: Icons.visibility,
                   ),
                   trigger_button(
-                    onPressed: () {},
+                    onPressed: () => _handleSightSubmit('Sound'),
                     buttonText: 'Sound',
                     icon: Icons.hearing,
                   ),
                   trigger_button(
-                    onPressed: () {},
+                    onPressed: () => _handleSightSubmit('Touch'),
                     buttonText: 'Touch',
                     icon: Icons.back_hand,
                   ),
                   trigger_button(
-                    onPressed: () {},
+                    onPressed: () => _handleSightSubmit('Taste'),
                     buttonText: 'Taste',
                     icon: Icons.face,
                   ),
                   trigger_button(
-                    onPressed: () {},
+                    onPressed: () => _handleSightSubmit('Smell'),
                     buttonText: 'Smell',
                     icon: Icons.face,
                   ),
 
                   trigger_button(
-                    onPressed: () {},
+                    onPressed: () => _handleSightSubmit('Other'),
                     buttonText: 'Other',
                     textColor: Color.fromARGB(255, 242, 242, 242),
                     buttonColor: Color.fromARGB(255, 201, 201, 201),
@@ -113,8 +142,8 @@ class DiaryForm extends State<MyForm> {
             DiaryInputField(
               label: 'Duration',
               controller: _durationController,
-              //TODO: Define controller field
-              //TODO: add drop down lint(minutes, hours, days, weeks)
+
+              //TODO: add drop down list(minutes, hours, days, weeks)
             ),
 
             SizedBox(height: 20.0),
@@ -124,9 +153,7 @@ class DiaryForm extends State<MyForm> {
               maxLines: 4,
               controller: _diaryController,
             ),
-
-            //TODO: implement save button functionality
-            Text('$_plannedEvent'),
+//BUG: current date is not correct
             SizedBox(height: 70.0),
             Center(
               child: Container(
@@ -141,8 +168,6 @@ class DiaryForm extends State<MyForm> {
                       ),
                     ),
                   ),
-                  //TODO: onPressed add form input to storage
-                  //HACK: empty function
                   onPressed: _handleSubmit,
                   child: Text(
                     'Save',

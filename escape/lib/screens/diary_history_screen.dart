@@ -1,116 +1,170 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:escape/models/SensoryOverloadDiary.dart';
 
-class DiaryHistory extends StatelessWidget {
-  const DiaryHistory({
-    super.key,
-  });
+class DiaryHistory extends StatefulWidget {
+  @override
+  _DiaryHistoryState createState() => _DiaryHistoryState();
+}
+
+class _DiaryHistoryState extends State<DiaryHistory> {
+  late SharedPreferences _prefs;
+  List<SenosoryOverloadDiary> _sensoryOverloadList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    _prefs = await SharedPreferences.getInstance();
+    String? eventListJson = _prefs.getString('eventList');
+    if (eventListJson != null) {
+      Iterable list = json.decode(eventListJson);
+      setState(() {
+        _sensoryOverloadList =
+            list.map((model) => SenosoryOverloadDiary.fromJson(model)).toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Scaffold(
+      body: Stack(
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 5, top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.arrow_back),
-                SizedBox(
-                  width: 5,
+          ListView(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 15, top: 10),
+                      alignment: Alignment.centerLeft,
+                      child: Icon(Icons.arrow_back),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            'History',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Spacer(),
+                          Icon(Icons.filter_list)
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'History',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
-            ),
-          ),
-          Container(
-              margin: EdgeInsets.only(top: 30, bottom: 30, right: 25, left: 25),
-              child: Column(
-                children: [
-                  //TODO: display the list of sensory overload records
-                  Container(
-                    height: 100,
-                    margin: EdgeInsets.only(bottom: 5),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: _sensoryOverloadList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var reversedList = _sensoryOverloadList.reversed.toList();
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 134, 177, 230),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Color.fromARGB(255, 177, 199, 226),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 25, right: 55),
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '05',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text('March',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      )),
-                                ]),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${_sensoryOverloadList[index].date.substring(8, 10)}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                  '${_sensoryOverloadList[index].date.substring(0, 7)}',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12)),
+                            ],
                           ),
-                          Container(
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Expanded(
+                          child: Container(
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Title',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(height: 16),
-                                  Text('Next time I will create a list...',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      )),
-                                ]),
-                          ),
-                          Container(
-                            height: 30,
-                            margin: EdgeInsets.only(bottom: 60, right: 10),
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '10:45',
-                                    style: TextStyle(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${reversedList[index].title}',
+                                  style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
-                                    ),
-                                  ),
-                                ]),
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(height: 15),
+                                Text(
+                                  reversedList[index].diaryNote.length > 20
+                                      ? '${reversedList[index].diaryNote.substring(0, 19)}...'
+                                      : reversedList[index].diaryNote,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
-                        ]),
-                  ),
-
-                  //FIXME: Remove this code after implementing the list view
-
-                  Container(
-                    height: 100,
-                    margin: EdgeInsets.only(bottom: 5),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 178, 208, 245),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(10)), // Define border radius here
+                        ),
+                        Container(
+                          height: 30,
+                          margin: EdgeInsets.only(bottom: 60, right: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '10:45',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              )),
+                  );
+                },
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: Container(
+              child: FloatingActionButton(
+                backgroundColor: Color.fromARGB(255, 134, 177, 230),
+                onPressed: () {
+                  // TODO: navigate to
+                },
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
