@@ -30,21 +30,19 @@ class DiaryInputField extends StatelessWidget {
         child: TextField(
           maxLines: maxLines ?? 1,
           controller: controller,
-          //TODO: define input controller for title
           //BUG: label not working as needed
-          //FIXME: customise input field
           //HACK: Used text as input field label
           decoration: InputDecoration(
             filled: true,
             fillColor: inputFieldColor ?? Colors.white,
-            hintText: 'Type here...',
+            hintText: '...',
             hintStyle: const TextStyle(
                 color: Color.fromARGB(255, 185, 180, 180),
                 fontWeight: FontWeight.w300,
                 fontSize: 14),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-            ),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                borderSide: BorderSide.none),
             contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           ),
