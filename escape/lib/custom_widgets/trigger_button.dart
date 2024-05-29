@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class trigger_button extends StatelessWidget {
-  trigger_button({
+class TriggerButton extends StatelessWidget {
+  TriggerButton({
     required this.onPressed,
     this.borderRadius,
     this.buttonColor,
@@ -38,7 +38,7 @@ class trigger_button extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: onPressed, //TODO: implement onPressed method and call
+          onPressed: onPressed,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

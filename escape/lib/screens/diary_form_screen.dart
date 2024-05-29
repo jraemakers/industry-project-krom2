@@ -14,7 +14,7 @@ class DiaryForm extends State<MyForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _durationController = TextEditingController();
   final TextEditingController _diaryController = TextEditingController();
-  String trigger = 'None';
+  String trigger = '';
 
   late SharedPreferences _prefs;
   List<SenosoryOverloadDiary> _SensoryOverloadList = [];
@@ -67,6 +67,12 @@ class DiaryForm extends State<MyForm> {
     });
   }
 
+  void _removeTreggerInput() {
+    setState(() {
+      trigger = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -80,7 +86,6 @@ class DiaryForm extends State<MyForm> {
             DiaryInputField(
               label: 'Title',
               controller: _titleController,
-              //TODO: define controller field
             ),
             SizedBox(height: 20.0),
             Text(
@@ -95,41 +100,61 @@ class DiaryForm extends State<MyForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //FIXME: think of switch statement for better outcome
-                  trigger_button(
+                  TriggerButton(
                     onPressed: () => _handleSightSubmit('Sight'),
                     buttonText: 'Sight',
                     icon: Icons.visibility,
                   ),
-                  trigger_button(
+                  TriggerButton(
                     onPressed: () => _handleSightSubmit('Sound'),
                     buttonText: 'Sound',
                     icon: Icons.hearing,
                   ),
-                  trigger_button(
+                  TriggerButton(
                     onPressed: () => _handleSightSubmit('Touch'),
                     buttonText: 'Touch',
                     icon: Icons.back_hand,
                   ),
-                  trigger_button(
+                  TriggerButton(
                     onPressed: () => _handleSightSubmit('Taste'),
                     buttonText: 'Taste',
                     icon: Icons.face,
                   ),
-                  trigger_button(
+                  TriggerButton(
                     onPressed: () => _handleSightSubmit('Smell'),
                     buttonText: 'Smell',
                     icon: Icons.face,
                   ),
 
-                  trigger_button(
+                  TriggerButton(
                     onPressed: () => _handleSightSubmit('Other'),
                     buttonText: 'Other',
                     textColor: Color.fromARGB(255, 242, 242, 242),
                     buttonColor: Color.fromARGB(255, 201, 201, 201),
                     icon: Icons.edit,
                   ),
+                ],
+              ),
+            ),
 
-                  //FIXME: create custom input fiels
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                children: [
+                  Text(
+                    trigger,
+                    style: TextStyle(fontSize: 13),
+                  ),
+                  trigger.isNotEmpty
+                      ? Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 230, 239, 238)),
+                          child: GestureDetector(
+                              onTap: _removeTreggerInput,
+                              child: Icon(Icons.close, size: 16)))
+                      : SizedBox(),
                 ],
               ),
             ),
