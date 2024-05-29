@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
             left: circleLeft,
             child: Container(
               width: 400, // Set circle width
-              height: 350, // Set circle height
+              height: 500, // Set circle height
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: const Color(0xFF005174), // Set circle color to white
