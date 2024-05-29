@@ -38,6 +38,21 @@ class ProfileScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: const Color(0xFF005174), // Set circle color to white
               ),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 150), // Adjust the top padding as needed
+                  child: Text(
+                    'John Doe',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -45,6 +60,8 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 
 
