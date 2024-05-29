@@ -84,7 +84,6 @@ class ProfileScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -97,14 +96,51 @@ class ProfileScreen extends StatelessWidget {
           // Additional Text
           Positioned(
             left: 20,
-            top: 220,
-            child: Text(
-              'Reminders for Tomorrow',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+            top: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Reminders for Tomorrow:',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8), // Adjust vertical spacing
+                Container(
+                  width: screenSize.width - 40, // Adjust width to fill the screen
+                  padding: EdgeInsets.all(12), // Padding inside the container
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 5, 230, 255), // Background color of the rectangle
+                    borderRadius: BorderRadius.circular(8), // Border radius
+                  ),
+                  child: Text(
+                    'Example Reminder',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16), // Add vertical spacing between containers
+                Container(
+                  width: screenSize.width - 40, // Adjust width to fill the screen
+                  padding: EdgeInsets.all(12), // Padding inside the container
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 16, 230, 145), // Background color of the rectangle
+                    borderRadius: BorderRadius.circular(8), // Border radius
+                  ),
+                  child: Text(
+                    'Another Example Reminder',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -118,6 +154,7 @@ void main() {
     home: ProfileScreen(),
   ));
 }
+
 
 
 
