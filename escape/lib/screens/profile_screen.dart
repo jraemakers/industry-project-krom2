@@ -69,13 +69,26 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 1), // Add some space between the texts
-                  Text(
-                    'Eindhoven',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_pin,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        SizedBox(width: 5), // Adjust spacing as needed
+                        Text(
+                          'Eindhoven',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
