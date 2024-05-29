@@ -37,11 +37,9 @@ class ProfileScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Color(0xFF005174), // Set circle color to white
               ),
-              child: Center(
-              ),
             ),
           ),
-          // pfp pfp)
+          // pfp pfp
           Positioned(
             top: 30, // Adjust the top position to position the circle above the app bar
             left: 140,
@@ -52,8 +50,6 @@ class ProfileScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.white, // Set circle color to white
               ),
-              child: Center(
-              ),
             ),
           ),
           // "John Doe" Text
@@ -62,13 +58,25 @@ class ProfileScreen extends StatelessWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: Text(
-                'John Doe',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                    'John Doe',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 1), // Add some space between the texts
+                  Text(
+                    'Eindhoven',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -77,6 +85,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
 
 
 
