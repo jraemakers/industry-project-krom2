@@ -84,6 +84,7 @@ class ProfileScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -93,10 +94,29 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
           ),
+          // Additional Text
+          Positioned(
+            left: 20,
+            top: 220,
+            child: Text(
+              'Reminders for Tomorrow',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: ProfileScreen(),
+  ));
 }
 
 
