@@ -1,167 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:escape/models/SensoryOverloadDiary.dart';
 
-class ProfileScreen extends StatefulWidget {
-  @override
-  _ProfileScreen createState() => _ProfileScreen();
-}
-
-class _ProfileScreen extends State<ProfileScreen> {
-  late SharedPreferences _prefs;
-  List<SenosoryOverloadDiary> _sensoryOverloadList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
-
-  Future<void> _loadData() async {
-    _prefs = await SharedPreferences.getInstance();
-    String? eventListJson = _prefs.getString('eventList');
-    if (eventListJson != null) {
-      Iterable list = json.decode(eventListJson);
-      setState(() {
-        _sensoryOverloadList =
-            list.map((model) => SenosoryOverloadDiary.fromJson(model)).toList();
-      });
-    }
-  }
-
+class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Get the screen size
+    final Size screenSize = MediaQuery.of(context).size;
+
+    // Calculate the center position of the circle
+    final double circleLeft = (screenSize.width - 400) / 2; // Adjust 400 to your desired width
+    final double circleTop = 10; // Adjust the top position as needed
+
     return Scaffold(
+      backgroundColor: Color(0xFF005174), // Set background color to #005174
       body: Stack(
         children: [
-          ListView(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 15, top: 10),
-                      alignment: Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(left: 15, right: 15, top: 10),
-                      child: Row(
-                        children: [
-                          Text(
-                            'test',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Spacer(),
-                          Icon(Icons.filter_list)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _sensoryOverloadList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var reversedList = _sensoryOverloadList.reversed.toList();
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 177, 199, 226),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${_sensoryOverloadList[index].date.substring(8, 10)}',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                  '${_sensoryOverloadList[index].date.substring(0, 7)}',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Expanded(
-                          child: Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${reversedList[index].title}',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                SizedBox(height: 15),
-                                Text(
-                                  reversedList[index].diaryNote.length > 20
-                                      ? '${reversedList[index].diaryNote.substring(0, 19)}...'
-                                      : reversedList[index].diaryNote,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 30,
-                          margin: EdgeInsets.only(bottom: 60, right: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '10:45',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+          // App Bar
           Positioned(
-            bottom: 20,
-            right: 20,
+            top: 0,
+            left: 0,
+            right: 0,
+            child: AppBar(
+              backgroundColor: Color.fromRGBO(8, 95, 133, 0.85), // Set banner color to #085F85 with 85% opacity
+              elevation: 0, // Remove the shadow
+              title: Container(), // Empty container to remove the title
+              // Adjust the height of the app bar
+              toolbarHeight: 200, // Adjust the height as needed
+            ),
+          ),
+          // White Circle
+          Positioned(
+            top: circleTop,
+            left: circleLeft,
             child: Container(
-              child: FloatingActionButton(
-                backgroundColor: Color.fromARGB(255, 134, 177, 230),
-                onPressed: () {
-                  // TODO: navigate to
-                },
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
+              width: 400, // Set circle width
+              height: 350, // Set circle height
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF005174), // Set circle color to white
               ),
             ),
           ),
@@ -170,3 +45,23 @@ class _ProfileScreen extends State<ProfileScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
