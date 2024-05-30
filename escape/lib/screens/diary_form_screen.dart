@@ -88,11 +88,10 @@ class DiaryForm extends State<MyForm> {
               controller: _titleController,
             ),
             SizedBox(height: 20.0),
+
             Text(
               'Triggers',
-              style: TextStyle(
-                fontSize: 16,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -143,26 +142,27 @@ class DiaryForm extends State<MyForm> {
                 children: [
                   Text(
                     trigger,
-                    style: TextStyle(fontSize: 13),
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w200),
                   ),
                   trigger.isNotEmpty
                       ? Container(
                           width: 20,
                           height: 20,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 230, 239, 238)),
+                          decoration: BoxDecoration(),
                           child: GestureDetector(
                               onTap: _removeTreggerInput,
-                              child: Icon(Icons.close, size: 16)))
+                              child: Icon(Icons.close,
+                                  size: 16, color: Colors.white)))
                       : SizedBox(),
                 ],
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: 15,
             ),
-
-            SizedBox(height: 20.0),
             //FIXME: update this input
             DiaryInputField(
               label: 'Duration',
@@ -179,17 +179,21 @@ class DiaryForm extends State<MyForm> {
               controller: _diaryController,
             ),
 //BUG: current date is not correct
-            SizedBox(height: 70.0),
+            SizedBox(height: 60.0),
+
             Center(
               child: Container(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 134, 177, 230)),
+                        Color.fromRGBO(0, 81, 116, 1)),
+                    elevation: MaterialStateProperty.all<double>(8.0),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
+                        side:
+                            BorderSide(color: Color.fromRGBO(26, 174, 179, 1)),
                       ),
                     ),
                   ),

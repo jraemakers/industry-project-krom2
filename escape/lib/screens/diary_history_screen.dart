@@ -56,6 +56,33 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                             style: TextStyle(fontSize: 18),
                           ),
                           Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<
+                                          EdgeInsetsGeometry>(
+                                      EdgeInsets.only(left: 10, right: 10)),
+                                  shape:
+                                      MaterialStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                  ),
+                                ),
+                                //TODO: Go to overview(Navigation)
+                                onPressed: () {},
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.insert_chart,
+                                      color: Color.fromARGB(255, 134, 177, 230),
+                                    ),
+                                    Text('Overview'),
+                                  ],
+                                )),
+                          ),
                           Icon(Icons.filter_list)
                         ],
                       ),

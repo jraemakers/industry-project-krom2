@@ -28,7 +28,7 @@ class TriggerButton extends StatelessWidget {
           style: ButtonStyle(
             elevation: MaterialStateProperty.all<double>(2),
             backgroundColor: MaterialStateProperty.all<Color>(
-              buttonColor ?? Color.fromARGB(255, 134, 177, 230),
+              buttonColor ?? Color(0xFF0F6C95),
             ),
 
             //FIXME: Remove depricated features and find new way for MaterialStateProperty
@@ -44,7 +44,7 @@ class TriggerButton extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: Colors.white,
+                color: Color(0xFFFEA655),
                 size: 19,
               ),
               Text(

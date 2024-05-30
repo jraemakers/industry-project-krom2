@@ -38,27 +38,31 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 233, 232, 231),
+      backgroundColor: Color(0xFF005174),
       appBar: AppBar(
         title: Container(
           margin: EdgeInsets.only(left: 120),
-          width: 100,
-          height: 50,
-          child: const Center(
-            child: Text('OFF', style: TextStyle(color: Colors.white)),
+          width: 120,
+          height: 70,
+          child: Center(
+            child: Image.asset('assets/images/file.png', fit: BoxFit.cover),
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 78, 110, 191),
+        backgroundColor: Color(0xFF005174),
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF005174),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromARGB(255, 78, 110, 191),
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Color(0xFFFEA655),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+            ),
             label: '',
           ),
           BottomNavigationBarItem(
