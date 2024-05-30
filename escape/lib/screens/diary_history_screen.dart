@@ -33,6 +33,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(0, 81, 116, 1.0),
       body: Stack(
         children: [
           ListView(
@@ -44,7 +45,10 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                     Container(
                       margin: EdgeInsets.only(left: 15, top: 10),
                       alignment: Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
@@ -52,8 +56,8 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                       child: Row(
                         children: [
                           Text(
-                            'History',
-                            style: TextStyle(fontSize: 18),
+                            'Journal Log',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                           Spacer(),
                           Padding(
@@ -83,7 +87,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                                   ],
                                 )),
                           ),
-                          Icon(Icons.filter_list)
+                          Icon(Icons.filter_list, color: Colors.white)
                         ],
                       ),
                     ),
@@ -99,7 +103,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                   return Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 177, 199, 226),
+                      color: Color.fromRGBO(15, 108, 149, 0.5),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
@@ -176,22 +180,22 @@ class _DiaryHistoryState extends State<DiaryHistory> {
               ),
             ],
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: Container(
-              child: FloatingActionButton(
-                backgroundColor: Color.fromARGB(255, 134, 177, 230),
-                onPressed: () {
-                  // TODO: navigate to
-                },
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 20,
+          //   right: 20,
+          //   child: Container(
+          //     child: FloatingActionButton(
+          //       backgroundColor: Color.fromARGB(255, 134, 177, 230),
+          //       onPressed: () {
+          //         // TODO: navigate to
+          //       },
+          //       child: Icon(
+          //         Icons.add,
+          //         color: Colors.white,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
