@@ -28,9 +28,9 @@ class DiaryForm extends State<MyForm> {
 
   Future<void> _loadData() async {
     _prefs = await SharedPreferences.getInstance();
-    String? eventListJson = _prefs.getString('eventList');
-    if (eventListJson != null) {
-      Iterable list = json.decode(eventListJson);
+    String? triggerListJson = _prefs.getString('triggerList');
+    if (triggerListJson != null) {
+      Iterable list = json.decode(triggerListJson);
       setState(() {
         _SensoryOverloadList =
             list.map((model) => SenosoryOverloadDiary.fromJson(model)).toList();
@@ -39,7 +39,7 @@ class DiaryForm extends State<MyForm> {
   }
 
   Future<void> _saveData() async {
-    await _prefs.setString('eventList',
+    await _prefs.setString('triggerList',
         json.encode(_SensoryOverloadList.map((e) => e.toJson()).toList()));
   }
 

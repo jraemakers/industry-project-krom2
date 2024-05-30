@@ -20,9 +20,9 @@ class _DiaryHistoryState extends State<DiaryHistory> {
 
   Future<void> _loadData() async {
     _prefs = await SharedPreferences.getInstance();
-    String? eventListJson = _prefs.getString('eventList');
-    if (eventListJson != null) {
-      Iterable list = json.decode(eventListJson);
+    String? triggerListJson = _prefs.getString('triggerList');
+    if (triggerListJson != null) {
+      Iterable list = json.decode(triggerListJson);
       setState(() {
         _sensoryOverloadList =
             list.map((model) => SenosoryOverloadDiary.fromJson(model)).toList();
