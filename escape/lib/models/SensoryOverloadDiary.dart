@@ -1,14 +1,14 @@
 class SenosoryOverloadDiary {
   //TODO: add (uuid)String id;
   String title;
-  String trigger;
+  List<String> triggers;
   String date;
   int duration;
   String diaryNote;
 
   SenosoryOverloadDiary({
     required this.title,
-    required this.trigger,
+    required this.triggers,
     required this.date,
     required this.duration,
     required this.diaryNote,
@@ -17,7 +17,7 @@ class SenosoryOverloadDiary {
   factory SenosoryOverloadDiary.fromJson(Map<String, dynamic> json) {
     return SenosoryOverloadDiary(
       title: json['title'],
-      trigger: json['trigger'],
+      triggers: List<String>.from(json['triggers']),
       date: json['date'],
       duration: json['duration'],
       diaryNote: json['diaryNote'],
@@ -27,7 +27,7 @@ class SenosoryOverloadDiary {
   Map<String, dynamic> toJson() {
     return {
       'title': title,
-      'trigger': trigger,
+      'triggers': triggers,
       'date': date,
       'duration': duration,
       'diaryNote': diaryNote,

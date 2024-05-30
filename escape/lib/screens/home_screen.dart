@@ -1,5 +1,6 @@
 import 'package:escape/screens/diary_form_screen.dart';
 import 'package:escape/screens/diary_history_screen.dart';
+import 'package:escape/screens/home_temp.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -13,7 +14,7 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    MyForm(),
+    TempHome(),
     Container(
         child: Center(
             child: Text(
