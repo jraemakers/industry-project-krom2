@@ -101,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Reminders for Tomorrow:',
+                  'Reminders for Tomorrow',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -138,6 +138,31 @@ class ProfileScreen extends StatelessWidget {
                       fontSize: 16,
                       color: Colors.black,
                     ),
+                  ),
+                ),
+                SizedBox(height: 16), // Add vertical spacing before the new text
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0), // Add padding to the top of the text
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Activity History',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 8), // Add vertical spacing before the new text
+                      Text(
+                        'What have you been up to lately?',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
