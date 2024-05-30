@@ -162,6 +162,73 @@ class ProfileScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
+                      SizedBox(height: 16), // Add vertical spacing before the containers
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: (screenSize.width - 60) / 2, // Adjust width for two equal containers with some spacing
+                            padding: EdgeInsets.all(12), // Padding inside the container
+                            decoration: BoxDecoration(
+                              color: Color(0xFF005174), // Background color of the container
+                              borderRadius: BorderRadius.circular(8), // Border radius
+                              border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 0.5), // Border color and width
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Activities: 7',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 4), // Add vertical spacing between texts
+                                Text(
+                                  'Visit Activities',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: (screenSize.width - 60) / 2, // Adjust width for two equal containers with some spacing
+                            padding: EdgeInsets.all(12), // Padding inside the container
+                            decoration: BoxDecoration(
+                              color: Color(0xFF005174), // Background color of the container
+                              borderRadius: BorderRadius.circular(8), // Border radius
+                              border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 0.5),
+                               // Border color and width
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Events: 2',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 4), // Add vertical spacing between texts
+                                Text(
+                                  'Visit Events',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -179,6 +246,7 @@ void main() {
     home: ProfileScreen(),
   ));
 }
+
 
 
 
