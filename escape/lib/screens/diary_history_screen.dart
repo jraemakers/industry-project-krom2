@@ -64,6 +64,10 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: ElevatedButton(
                                 style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    Color.fromARGB(186, 33, 169, 227),
+                                  ),
                                   padding: MaterialStateProperty.all<
                                           EdgeInsetsGeometry>(
                                       EdgeInsets.only(left: 10, right: 10)),
@@ -81,9 +85,12 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                                   children: [
                                     Icon(
                                       Icons.insert_chart,
-                                      color: Color.fromARGB(255, 134, 177, 230),
+                                      color: Color.fromARGB(255, 237, 239, 241),
                                     ),
-                                    Text('Overview'),
+                                    Text(
+                                      'Overview',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ],
                                 )),
                           ),
@@ -180,22 +187,6 @@ class _DiaryHistoryState extends State<DiaryHistory> {
               ),
             ],
           ),
-          // Positioned(
-          //   bottom: 20,
-          //   right: 20,
-          //   child: Container(
-          //     child: FloatingActionButton(
-          //       backgroundColor: Color.fromARGB(255, 134, 177, 230),
-          //       onPressed: () {
-          //         // TODO: navigate to
-          //       },
-          //       child: Icon(
-          //         Icons.add,
-          //         color: Colors.white,
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
