@@ -1,59 +1,59 @@
 import 'package:flutter/material.dart';
 
+// ignore: use_key_in_widget_constructors
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Get the screen size
     final Size screenSize = MediaQuery.of(context).size;
-
-    // Calculate the center position of the circle
-    final double circleLeft = (screenSize.width - 400) / 2; // Adjust 400 to your desired width
-
     return Scaffold(
-      backgroundColor: Color(0xFF005174), // Set background color to #005174
+      backgroundColor: const Color(0xFF005174), 
       body: Stack(
         children: [
-          // App Bar
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: AppBar(
-              backgroundColor: Color.fromRGBO(8, 95, 133, 0.85), // Set banner color to #085F85 with 85% opacity
-              elevation: 0, // Remove the shadow
-              title: Container(), // Empty container to remove the title
-              // Adjust the height of the app bar
-              toolbarHeight: 200, // Adjust the height as needed
+              backgroundColor: const Color.fromRGBO(8, 95, 133, 0.85),
+              elevation: 0,
+              title: Container(),
+              toolbarHeight: 200,
             ),
           ),
-          // White Circle 1 (above "John Doe" text)
           Positioned(
-            top: 60, // Adjust the top position to position the circle above the app bar
-            left: circleLeft,
-            child: Container(
-              width: 400, // Set circle width
-              height: 400, // Set circle height
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFF005174), // Set circle color to white
+            top: 60,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: 385,
+                height: 400,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFF005174),
+                ),
               ),
             ),
           ),
-          // pfp pfp
-          Positioned(
-            top: 30, // Adjust the top position to position the circle above the app bar
-            left: 140,
-            child: Container(
-              width: 80, // Set circle width
-              height: 80, // Set circle height
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white, // Set circle color to white
+          Stack(
+            children: [
+              Positioned(
+                top: 30,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-          // "John Doe" Text
-          Positioned(
+          const Positioned(
             top: 120,
             left: 0,
             right: 0,
@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 1), // Add some space between the texts
+                  SizedBox(height: 1),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
                           color: Colors.white,
                           size: 20,
                         ),
-                        SizedBox(width: 5), // Adjust spacing as needed
+                        SizedBox(width: 5),
                         Text(
                           'Eindhoven',
                           style: TextStyle(
@@ -93,14 +93,13 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Additional Text
           Positioned(
             left: 20,
             top: 200,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Reminders for Tomorrow',
                   style: TextStyle(
                     fontSize: 16,
@@ -108,15 +107,15 @@ class ProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8), // Adjust vertical spacing
+                const SizedBox(height: 8),
                 Container(
-                  width: screenSize.width - 40, // Adjust width to fill the screen
-                  padding: EdgeInsets.all(12), // Padding inside the container
+                  width: screenSize.width - 40,
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 5, 230, 255), // Background color of the rectangle
-                    borderRadius: BorderRadius.circular(8), // Border radius
+                    color: const Color.fromARGB(255, 5, 230, 255),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Example Reminder',
                     style: TextStyle(
                       fontSize: 16,
@@ -124,15 +123,15 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16), // Add vertical spacing between containers
+                const SizedBox(height: 16),
                 Container(
-                  width: screenSize.width - 40, // Adjust width to fill the screen
-                  padding: EdgeInsets.all(12), // Padding inside the container
+                  width: screenSize.width - 40,
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 16, 230, 145), // Background color of the rectangle
-                    borderRadius: BorderRadius.circular(8), // Border radius
+                    color: const Color.fromARGB(255, 16, 230, 145),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Another Example Reminder',
                     style: TextStyle(
                       fontSize: 16,
@@ -140,13 +139,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16), // Add vertical spacing before the new text
+                const SizedBox(height: 16),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0), // Add padding to the top of the text
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Activity History',
                         style: TextStyle(
                           fontSize: 16,
@@ -154,27 +153,27 @@ class ProfileScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8), // Add vertical spacing before the new text
-                      Text(
+                      const SizedBox(height: 8),
+                      const Text(
                         'What have you been up to lately?',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 16), // Add vertical spacing before the containers
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: (screenSize.width - 60) / 2, // Adjust width for two equal containers with some spacing
-                            padding: EdgeInsets.all(12), // Padding inside the container
+                            width: (screenSize.width - 80) / 2,
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Color(0xFF005174), // Background color of the container
-                              borderRadius: BorderRadius.circular(8), // Border radius
-                              border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 0.5), // Border color and width
+                              color: const Color(0xFF005174),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 0.5),
                             ),
-                            child: Column(
+                            child: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -185,7 +184,7 @@ class ProfileScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 4), // Add vertical spacing between texts
+                                SizedBox(height: 4),
                                 Text(
                                   'Visit Activities',
                                   style: TextStyle(
@@ -196,16 +195,16 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                          const SizedBox(width: 20),
                           Container(
-                            width: (screenSize.width - 60) / 2, // Adjust width for two equal containers with some spacing
-                            padding: EdgeInsets.all(12), // Padding inside the container
+                            width: (screenSize.width - 80) / 2,
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Color(0xFF005174), // Background color of the container
-                              borderRadius: BorderRadius.circular(8), // Border radius
+                              color: const Color(0xFF005174),
+                              borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 0.5),
-                               // Border color and width
                             ),
-                            child: Column(
+                            child: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -216,7 +215,7 @@ class ProfileScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 4), // Add vertical spacing between texts
+                                SizedBox(height: 4),
                                 Text(
                                   'Visit Events',
                                   style: TextStyle(
@@ -235,6 +234,25 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                'Logout',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xFF005174),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -246,29 +264,3 @@ void main() {
     home: ProfileScreen(),
   ));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
