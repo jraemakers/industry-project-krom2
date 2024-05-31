@@ -8,8 +8,10 @@ class CalendarFormScreen extends StatefulWidget {
 }
 
 class _CalendarFormScreenState extends State<CalendarFormScreen> {
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
   String _selectedRepeatOption = 'Do not repeat';
   final List<String> _repeatOptions = [
     'Do not repeat',
@@ -43,6 +45,22 @@ class _CalendarFormScreenState extends State<CalendarFormScreen> {
         _timeController.text = pickedTime.format(context);
       });
     }
+  }
+
+  void _saveEvent() {
+    if (_titleController.text.isEmpty ||
+        _dateController.text.isEmpty ||
+        _timeController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all the required fields'),
+        ),
+      );
+      return;
+    }
+    // Handle the event saving logic here
+    // For example, you might want to save the event to a database or pass it back to the previous screen
+    Navigator.pop(context);
   }
 
   @override
@@ -84,9 +102,10 @@ class _CalendarFormScreenState extends State<CalendarFormScreen> {
                     fontSize: 16.0,
                   ),
                 ),
-                const TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _titleController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                     labelStyle: TextStyle(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -155,9 +174,10 @@ class _CalendarFormScreenState extends State<CalendarFormScreen> {
                     fontSize: 16.0,
                   ),
                 ),
-                const TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _locationController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                     labelStyle: TextStyle(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -198,6 +218,17 @@ class _CalendarFormScreenState extends State<CalendarFormScreen> {
                   ),
                 ),
                 const SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: _saveEvent,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color(0xFF0F6C95),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    minimumSize: const Size(double.infinity, 50),
+                    textStyle: const TextStyle(fontSize: 16.0),
+                  ),
+                  child: const Text('Save'),
+                ),
               ],
             ),
           ),
