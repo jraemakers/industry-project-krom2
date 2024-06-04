@@ -32,6 +32,7 @@ class DiaryInputField extends StatelessWidget {
         ),
         SizedBox(height: 6.0),
         TextField(
+          style: TextStyle(color: Color(0xFFCBCBCB)),
           maxLines: maxLines ?? 1,
           controller: controller,
           decoration: InputDecoration(

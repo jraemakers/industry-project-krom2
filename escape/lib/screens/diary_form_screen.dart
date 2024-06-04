@@ -47,8 +47,11 @@ class DiaryForm extends State<MyForm> {
     SenosoryOverloadDiary newSensoryOverload = SenosoryOverloadDiary(
       title: _titleController.text,
       triggers: _triggersList,
+      // date:
+      //     '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}',
       date:
-          '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}',
+          '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().hour.toString().padLeft(2, '0')}:${DateTime.now().minute.toString().padLeft(2, '0')}:${DateTime.now().second.toString().padLeft(2, '0')}',
+
       duration: int.tryParse(_durationController.text) ?? 0,
       diaryNote: _diaryController.text,
     );
@@ -58,6 +61,7 @@ class DiaryForm extends State<MyForm> {
       _titleController.clear();
       _durationController.clear();
       _diaryController.clear();
+      _triggersList.clear();
     });
     _saveData();
   }
