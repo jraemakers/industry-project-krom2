@@ -146,7 +146,7 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Activity History',
+                        'Activity History', 
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
