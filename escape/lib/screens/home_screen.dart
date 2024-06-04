@@ -1,6 +1,6 @@
 import 'package:escape/screens/diary_form_screen.dart';
 import 'package:escape/screens/diary_history_screen.dart';
-import 'package:escape/screens/profile_screen.dart';
+import 'package:escape/screens/setting_screen.dart';
 import 'package:escape/screens/home_temp.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +22,14 @@ class _HomeState extends State<Home> {
       'Calendar Screen',
       style: TextStyle(fontSize: 40),
     ))),
-    ProfileScreen(),
-    DiaryHistory(),
     Container(
         child: Center(
-            child: Text('Settings Screen', style: TextStyle(fontSize: 40)))),
+            child: Text(
+      'test',
+      style: TextStyle(fontSize: 40),
+    ))),
+    DiaryHistory(),
+    SettingScreen(),
   ];
 
   void _onItemTapped(int index) {
