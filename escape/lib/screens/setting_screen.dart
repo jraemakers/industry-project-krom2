@@ -62,7 +62,6 @@ class SettingScreen extends StatelessWidget {
                         title: Text('Account', style: TextStyle(color: Colors.white)),
                         trailing: Icon(Icons.chevron_right, color: Colors.white),
                         onTap: () {
-                          // Navigate to account settings
                         },
                       ),
                       ListTile(
@@ -73,7 +72,6 @@ class SettingScreen extends StatelessWidget {
                         title: Text('Notifications', style: TextStyle(color: Colors.white)),
                         trailing: Icon(Icons.chevron_right, color: Colors.white),
                         onTap: () {
-                          // Navigate to notification settings
                         },
                       ),
                       ListTile(
@@ -84,7 +82,6 @@ class SettingScreen extends StatelessWidget {
                         title: Text('Logout', style: TextStyle(color: Colors.white)),
                         trailing: Icon(Icons.chevron_right, color: Colors.white),
                         onTap: () {
-                          // Handle logout
                         },
                       ),
                       ListTile(
@@ -95,7 +92,6 @@ class SettingScreen extends StatelessWidget {
                         title: Text('Delete Account', style: TextStyle(color: Colors.white)),
                         trailing: Icon(Icons.chevron_right, color: Colors.white),
                         onTap: () {
-                          // Handle delete account
                         },
                       ),
                       Padding(
@@ -124,7 +120,6 @@ class SettingScreen extends StatelessWidget {
                         title: Text('Report a Bug', style: TextStyle(color: Colors.white)),
                         trailing: Icon(Icons.chevron_right, color: Colors.white),
                         onTap: () {
-                          // Navigate to report a bug
                         },
                       ),
                       ListTile(
@@ -135,7 +130,6 @@ class SettingScreen extends StatelessWidget {
                         title: Text('Send Feedback', style: TextStyle(color: Colors.white)),
                         trailing: Icon(Icons.chevron_right, color: Colors.white),
                         onTap: () {
-                          // Navigate to send feedback
                         },
                       ),
                     ],
