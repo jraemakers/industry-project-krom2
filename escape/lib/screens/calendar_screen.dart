@@ -1,6 +1,5 @@
-import 'package:escape/custom_widgets/task_card';
 import 'package:flutter/material.dart';
-import '../widgets/task_card.dart';
+import 'package:escape/custom_widgets/task_card.dart';
 
 class CalendarScreen extends StatefulWidget {
   @override
