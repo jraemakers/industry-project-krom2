@@ -9,6 +9,7 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // ---------------> Arrow Icon
             Row(
               children: [
                 Padding(
@@ -22,8 +23,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
+            // ---------------> Settings Text
             Padding(
-              padding: const EdgeInsets.only(left: 26.0, top: 16.0),
+              padding: const EdgeInsets.only(left: 26.0, top: 24.0, bottom: 24.0),
               child: const Text(
                 'Settings',
                 style: TextStyle(
@@ -33,7 +35,15 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Other UI elements go here
+            // ---------------> LightBlue Container
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Container(
+                  color: const Color(0xFF075D82),
+                ),
+              ),
+            ),
           ],
         ),
       ),
