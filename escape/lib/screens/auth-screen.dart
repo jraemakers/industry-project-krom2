@@ -1,3 +1,6 @@
+
+import 'package:escape/screens/home-screen_main.dart';
+import 'package:escape/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -32,12 +35,12 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           children: [
             SizedBox(height: 50),
             Image.asset(
-              'assets/logo.png',
+              'assets/images/logo.png',
               height: 50,
             ),
             SizedBox(height: 20),
             Image.asset(
-              'assets/illustration.png',
+              'assets/images/illustration.png',
               height: 200,
             ),
             Container(
@@ -63,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                     ],
                   ),
                   SizedBox(
-                    height: 400,
+                    height: 500,
                     child: TabBarView(
                       controller: _tabController,
                       children: [
@@ -104,7 +107,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             onPressed: () {
               Navigator.pushNamed(context, '/home');
             },
-            icon: Image.asset('assets/google.png', height: 24),
+            icon: Image.asset('assets/images/google.png', height: 24),
             label: const Text("Continue with Google"),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black,
@@ -159,26 +162,30 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              // Navigator.pushNamed(context, '/home');'
+               Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeMohammad()),
+                  );
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 50),
             ),
-            child: const Text("Login"),
+            child: const Text("Loginnnnn"),
           ),
           const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("Not registered yet?"),
-              TextButton(
-                onPressed: () {
-                  _tabController.animateTo(1);
-                },
-                child: const Text("Create an account"),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     const Text("Not registered yet?"),
+          //     TextButton(
+          //       onPressed: () {
+          //         _tabController.animateTo(1);
+          //       },
+          //       child: const Text("Create an account"),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );
@@ -248,7 +255,11 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           Center(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home');
+                // Navigator.pushNamed(context, '/home');
+                 Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),

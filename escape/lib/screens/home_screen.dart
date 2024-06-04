@@ -19,7 +19,8 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    TempHome(),
+    // TempHome(),
+    Home(),
     CalendarScreen(),
     ProfileScreen(),
     DiaryHistory(),

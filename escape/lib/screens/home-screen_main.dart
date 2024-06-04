@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:escape/screens/diary_form_screen.dart';
 import 'package:escape/screens/diary_history_screen.dart';
+import 'package:escape/screens/home_temp.dart';
 
-
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeMohammad extends StatefulWidget {
+  const HomeMohammad({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<HomeMohammad> {
   int _selectedIndex = 0;
   bool groceriesChecked = false;
   bool runningChecked = false;
 
   final List<Widget> _screens = [
-    Home(),
+    TempHome(),
     Container(
       child: Center(
         child: Text(

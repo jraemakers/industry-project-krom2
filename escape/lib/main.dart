@@ -1,3 +1,4 @@
+import 'package:escape/screens/auth-screen.dart';
 import 'package:escape/screens/home-screen_main.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      // home: Home(),
+      home: AuthScreen()
     );
   }
 }
