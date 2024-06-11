@@ -1,6 +1,7 @@
 import 'package:escape/custom_widgets/diary_input_field.dart';
 import 'package:escape/custom_widgets/trigger_button.dart';
 import 'package:escape/models/SensoryOverloadDiary.dart';
+import 'package:escape/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -64,6 +65,10 @@ class DiaryForm extends State<MyForm> {
       _triggersList.clear();
     });
     _saveData();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()),
+    );
   }
 
 //FIXME: change the method name
