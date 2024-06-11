@@ -44,22 +44,17 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                 margin: EdgeInsets.only(top: 25),
                 child: Column(
                   children: [
-                    // Container(
-                    //   margin: EdgeInsets.only(left: 15, top: 10),
-                    //   alignment: Alignment.centerLeft,
-                    //   child: Icon(
-                    //     Icons.arrow_back,
-                    //     color: Colors.white,
-                    //   ),
-                    // ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                       child: Row(
                         children: [
                           Text(
                             'Journal Log',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 21,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                           Spacer(),
                           Padding(
@@ -113,7 +108,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                       // Container(
                       Padding(
                     padding: const EdgeInsets.only(
-                        left: 10.0, right: 10.0, bottom: 5.0),
+                        left: 20.0, right: 20.0, bottom: 5.0),
                     child: ElevatedButton(
                       // onPressed: () {
                       //   Navigator.push(
@@ -150,11 +145,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                           ),
                         ),
                       ),
-                      // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      // decoration: BoxDecoration(
-                      //   color: Color.fromRGBO(15, 108, 149, 0.5),
-                      //   borderRadius: BorderRadius.circular(10.0),
-                      // ),
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -166,14 +157,15 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${_sensoryOverloadList[index].date.substring(8, 10)}',
+                                  '${reversedList[index].date.substring(8, 10)}',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 30,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Text(
-                                    '${_sensoryOverloadList[index].date.substring(0, 7)}',
+                                    '${getMonthNameFromString(reversedList[index].date)} '
+                                    '${reversedList[index].date.substring(0, 4)}',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12)),
                               ],
@@ -213,9 +205,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  // '${reversedList[index].date.substring(11, 16)}',
-                                  // getMonthNameFromString
-                                  '${getMonthNameFromString(reversedList[index].date)}',
+                                  '${reversedList[index].date.substring(11, 16)}',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
