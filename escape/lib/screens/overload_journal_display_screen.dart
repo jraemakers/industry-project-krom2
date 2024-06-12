@@ -1,5 +1,6 @@
 import 'package:escape/models/SensoryOverloadDiary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class OverloadJournalDisplay extends StatefulWidget {
   final SenosoryOverloadDiary diary;
@@ -11,7 +12,18 @@ class OverloadJournalDisplay extends StatefulWidget {
 }
 
 class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
+  final FlutterTts flutterTts = FlutterTts();
   bool speakerState = false;
+  bool _showTriggerButtonState = false;
+  speak(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(text);
+  }
+
+  stopSpeaking() {
+    flutterTts.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +97,20 @@ class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
                             ),
                           ],
                         ),
+                        _showTriggerButtonState
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: widget.diary.triggers.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ListTile(
+                                    title: Text(
+                                      'Title: ${widget.diary.triggers[index]}',
+                                    ),
+                                  );
+                                },
+                              )
+                            : SizedBox(),
                         Positioned(
                           bottom: 0,
                           right: 0,
@@ -98,14 +124,18 @@ class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
                                 height: 35,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Color.fromARGB(
-                                      255, 100, 143, 182), // Background color
+                                  color: Color.fromARGB(255, 100, 143, 182),
                                 ),
                                 child: IconButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: () {
                                     setState(() {
                                       speakerState = !speakerState;
+                                      if (speakerState) {
+                                        speak(widget.diary.diaryNote);
+                                      } else {
+                                        stopSpeaking();
+                                      }
                                     });
                                   },
                                   icon: Icon(
@@ -161,7 +191,7 @@ class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
                               Color.fromRGBO(0, 81, 116, 1)),
                           elevation: MaterialStateProperty.all<double>(8.0),
                           shape: MaterialStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
+                            const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
                               side: BorderSide(
@@ -169,9 +199,16 @@ class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
                             ),
                           ),
                         ),
-                        onPressed: () {},
-                        child: Text('Show Triggers',
-                            style: TextStyle(color: Colors.white))),
+                        onPressed: () {
+                          setState(() {
+                            _showTriggerButtonState = !_showTriggerButtonState;
+                          });
+                        },
+                        child: Text(
+                            _showTriggerButtonState
+                                ? 'Hide Triggers'
+                                : 'Show Triggers',
+                            style: const TextStyle(color: Colors.white))),
                   ),
                 ],
               ),

@@ -62,9 +62,10 @@ class DiaryForm extends State<MyForm> {
       _titleController.clear();
       _durationController.clear();
       _diaryController.clear();
-      _triggersList.clear();
+      // _triggersList.clear();
     });
     _saveData();
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const Home()),
@@ -114,9 +115,12 @@ class DiaryForm extends State<MyForm> {
                   height: 30,
                 ),
 
-                Text(
+                const Text(
                   'Sensory Overload Journal',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 21,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),
                 DiaryInputField(
@@ -226,9 +230,6 @@ class DiaryForm extends State<MyForm> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 15,
-                ),
                 //FIXME: update this input
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
