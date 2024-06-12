@@ -1,5 +1,6 @@
 import 'package:escape/models/SensoryOverloadDiary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class OverloadJournalDisplay extends StatefulWidget {
   final SenosoryOverloadDiary diary;
@@ -11,8 +12,18 @@ class OverloadJournalDisplay extends StatefulWidget {
 }
 
 class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
+  final FlutterTts flutterTts = FlutterTts();
   bool speakerState = false;
   bool _showTriggerButtonState = false;
+  speak(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(text);
+  }
+
+  stopSpeaking() {
+    flutterTts.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,14 +124,18 @@ class _OverloadJournalDisplayState extends State<OverloadJournalDisplay> {
                                 height: 35,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Color.fromARGB(
-                                      255, 100, 143, 182), // Background color
+                                  color: Color.fromARGB(255, 100, 143, 182),
                                 ),
                                 child: IconButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: () {
                                     setState(() {
                                       speakerState = !speakerState;
+                                      if (speakerState) {
+                                        speak(widget.diary.diaryNote);
+                                      } else {
+                                        stopSpeaking();
+                                      }
                                     });
                                   },
                                   icon: Icon(
