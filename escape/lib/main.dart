@@ -1,6 +1,6 @@
-import 'package:escape/screens/auth-screen.dart';
-import 'package:escape/screens/home-screen_main.dart';
 import 'package:flutter/material.dart';
+import 'package:escape/screens/auth-screen.dart';
+import 'package:escape/screens/mohammed.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,10 +11,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: Home(),
-      home: AuthScreen()
+      initialRoute: '/',
+      routes: {
+        '/': (context) => AuthScreen(),
+        '/mohammed': (context) => Mohammed(),
+      },
     );
   }
 }

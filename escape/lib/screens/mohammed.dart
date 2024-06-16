@@ -21,12 +21,42 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> sureActivities = [];
   List<Map<String, dynamic>> unsureActivities = [
-    {'title': 'Meeting With Jan', 'time': '10:00', 'checklist': ['Laptop', 'Camera', 'Umbrella'], 'checked': false},
-    {'title': 'Groceries', 'time': '11:00', 'checklist': ['List', 'Bags'], 'checked': false},
-    {'title': 'Running', 'time': '12:00', 'checklist': ['Shoes', 'Water Bottle'], 'checked': false},
-    {'title': 'Night-Club', 'time': '20:00', 'checklist': ['ID', 'Money'], 'checked': false},
-    {'title': 'Workout', 'time': '06:00', 'checklist': ['Gym Clothes', 'Towel'], 'checked': false},
-    {'title': 'Dinner with Family', 'time': '19:00', 'checklist': ['Reservations', 'Gifts'], 'checked': false},
+    {
+      'title': 'Meeting With Jan',
+      'time': '10:00',
+      'checklist': ['Laptop', 'Camera', 'Umbrella'],
+      'checked': false
+    },
+    {
+      'title': 'Groceries',
+      'time': '11:00',
+      'checklist': ['List', 'Bags'],
+      'checked': false
+    },
+    {
+      'title': 'Running',
+      'time': '12:00',
+      'checklist': ['Shoes', 'Water Bottle'],
+      'checked': false
+    },
+    {
+      'title': 'Night-Club',
+      'time': '20:00',
+      'checklist': ['ID', 'Money'],
+      'checked': false
+    },
+    {
+      'title': 'Workout',
+      'time': '06:00',
+      'checklist': ['Gym Clothes', 'Towel'],
+      'checked': false
+    },
+    {
+      'title': 'Dinner with Family',
+      'time': '19:00',
+      'checklist': ['Reservations', 'Gifts'],
+      'checked': false
+    },
   ];
   List<Map<String, dynamic>> history = [];
 
@@ -43,14 +73,17 @@ class _HomeScreenState extends State<HomeScreen> {
     List<String>? sureActivityList = prefs.getStringList('sureActivities');
     if (sureActivityList != null) {
       setState(() {
-        sureActivities = sureActivityList.map((activity) => Map<String, dynamic>.from(activity as Map)).toList();
+        sureActivities = sureActivityList
+            .map((activity) => Map<String, dynamic>.from(activity as Map))
+            .toList();
       });
     }
   }
 
   _saveSureActivities() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> sureActivityList = sureActivities.map((activity) => activity.toString()).toList();
+    List<String> sureActivityList =
+        sureActivities.map((activity) => activity.toString()).toList();
     await prefs.setStringList('sureActivities', sureActivityList);
   }
 
@@ -59,14 +92,17 @@ class _HomeScreenState extends State<HomeScreen> {
     List<String>? historyList = prefs.getStringList('history');
     if (historyList != null) {
       setState(() {
-        history = historyList.map((activity) => Map<String, dynamic>.from(activity as Map)).toList();
+        history = historyList
+            .map((activity) => Map<String, dynamic>.from(activity as Map))
+            .toList();
       });
     }
   }
 
   _saveHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> historyList = history.map((activity) => activity.toString()).toList();
+    List<String> historyList =
+        history.map((activity) => activity.toString()).toList();
     await prefs.setStringList('history', historyList);
   }
 
@@ -74,7 +110,12 @@ class _HomeScreenState extends State<HomeScreen> {
     if (sureActivities.isNotEmpty) {
       var nextActivity = sureActivities.first;
       var now = DateTime.now();
-      var activityTime = DateTime(now.year, now.month, now.day, int.parse(nextActivity['time'].split(':')[0]), int.parse(nextActivity['time'].split(':')[1]));
+      var activityTime = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          int.parse(nextActivity['time'].split(':')[0]),
+          int.parse(nextActivity['time'].split(':')[1]));
 
       if (activityTime.isAfter(now)) {
         var duration = activityTime.difference(now);
@@ -87,7 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _showNotification(Map<String, dynamic> activity) {
     // Implement notification logic here
-    print("Reminder: Upcoming activity - ${activity['title']} at ${activity['time']}");
+    print(
+        "Reminder: Upcoming activity - ${activity['title']} at ${activity['time']}");
   }
 
   _addNewPlan(Map<String, dynamic> newPlan) {
@@ -116,6 +158,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Color(0xFF004D64),
         elevation: 0,
         actions: [
+          Text(
+            todayDate,
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           IconButton(
             icon: Icon(Icons.history, color: Colors.white),
             onPressed: () {
@@ -164,22 +210,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  Text(
-                    todayDate,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -203,7 +233,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         onDelete: () {
                           setState(() {
-                            history.add({...sureActivities.first, 'done': false});
+                            history
+                                .add({...sureActivities.first, 'done': false});
                             sureActivities.removeAt(0);
                             _saveSureActivities();
                             _saveHistory();
@@ -418,15 +449,23 @@ class _PlanItemState extends State<PlanItem> {
                                                       ? Icons.perm_identity
                                                       : item == 'Money'
                                                           ? Icons.attach_money
-                                                          : item == 'Gym Clothes'
-                                                              ? Icons.fitness_center
+                                                          : item ==
+                                                                  'Gym Clothes'
+                                                              ? Icons
+                                                                  .fitness_center
                                                               : item == 'Towel'
-                                                                  ? Icons.beach_access
-                                                                  : item == 'Reservations'
-                                                                      ? Icons.restaurant
-                                                                      : item == 'Gifts'
-                                                                          ? Icons.card_giftcard
-                                                                          : Icons.check,
+                                                                  ? Icons
+                                                                      .beach_access
+                                                                  : item ==
+                                                                          'Reservations'
+                                                                      ? Icons
+                                                                          .restaurant
+                                                                      : item ==
+                                                                              'Gifts'
+                                                                          ? Icons
+                                                                              .card_giftcard
+                                                                          : Icons
+                                                                              .check,
                                   color: Colors.orange,
                                 ),
                                 SizedBox(width: 5),
@@ -469,7 +508,7 @@ class _PlanItemState extends State<PlanItem> {
             ),
             SizedBox(height: 5),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.space_between,
               children: [
                 Row(
                   children: [
@@ -531,12 +570,18 @@ class _PlanItemState extends State<PlanItem> {
                                                       : item == 'Gym Clothes'
                                                           ? Icons.fitness_center
                                                           : item == 'Towel'
-                                                              ? Icons.beach_access
-                                                              : item == 'Reservations'
-                                                                  ? Icons.restaurant
-                                                                  : item == 'Gifts'
-                                                                      ? Icons.card_giftcard
-                                                                      : Icons.check,
+                                                              ? Icons
+                                                                  .beach_access
+                                                              : item ==
+                                                                      'Reservations'
+                                                                  ? Icons
+                                                                      .restaurant
+                                                                  : item ==
+                                                                          'Gifts'
+                                                                      ? Icons
+                                                                          .card_giftcard
+                                                                      : Icons
+                                                                          .check,
                               color: Colors.orange,
                             ),
                             SizedBox(width: 5),

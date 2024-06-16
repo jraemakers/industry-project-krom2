@@ -1,7 +1,5 @@
-
-import 'package:escape/screens/home-screen_main.dart';
-import 'package:escape/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:escape/screens/mohammed.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -105,7 +103,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, '/mohammed');
             },
             icon: Image.asset('assets/images/google.png', height: 24),
             label: const Text("Continue with Google"),
@@ -162,30 +160,14 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           ),
           ElevatedButton(
             onPressed: () {
-              // Navigator.pushNamed(context, '/home');'
-               Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeMohammad()),
-                  );
+              Navigator.pushReplacementNamed(context, '/mohammed');
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 50),
             ),
-            child: const Text("Loginnnnn"),
+            child: const Text("Login"),
           ),
           const SizedBox(height: 10),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     const Text("Not registered yet?"),
-          //     TextButton(
-          //       onPressed: () {
-          //         _tabController.animateTo(1);
-          //       },
-          //       child: const Text("Create an account"),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );
@@ -255,11 +237,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           Center(
             child: ElevatedButton(
               onPressed: () {
-                // Navigator.pushNamed(context, '/home');
-                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
+                Navigator.pushReplacementNamed(context, '/mohammed');
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
