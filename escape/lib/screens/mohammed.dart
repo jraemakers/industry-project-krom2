@@ -157,22 +157,25 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xFF004D64),
         elevation: 0,
-        actions: [
-          Text(
-            todayDate,
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          IconButton(
-            icon: Icon(Icons.history, color: Colors.white),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => HistoryScreen(history: history),
-                ),
-              );
-            },
-          ),
-        ],
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              todayDate,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            IconButton(
+              icon: Icon(Icons.history, color: Colors.white),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => HistoryScreen(history: history),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -187,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Center(
                     child: Lottie.asset(
-                      'assets/images/animation.json', // Make sure you have a Lottie animation file in the assets folder
+                      'assets/images/file.png', // Make sure you have a Lottie animation file in the assets folder
                       fit: BoxFit.cover,
                       repeat: true,
                     ),
@@ -328,43 +331,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      title: Text('New Plan'),
-                      onTap: () {
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return NewPlanDialog(onSave: _addNewPlan);
-                          },
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: Text('New Trigger'),
-                      onTap: () {
-                        // Handle new trigger
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.orange,
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -380,8 +346,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Add',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Stats',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         selectedItemColor: Colors.orange,
@@ -508,7 +474,7 @@ class _PlanItemState extends State<PlanItem> {
             ),
             SizedBox(height: 5),
             Row(
-              mainAxisAlignment: MainAxisAlignment.space_between,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
@@ -525,12 +491,6 @@ class _PlanItemState extends State<PlanItem> {
                 ),
                 Row(
                   children: [
-                    Checkbox(
-                      value: widget.checked,
-                      onChanged: widget.onChanged,
-                      checkColor: Color(0xFF003B4C),
-                      fillColor: MaterialStateProperty.all(Colors.white),
-                    ),
                     IconButton(
                       icon: Icon(Icons.delete, color: Colors.orange),
                       onPressed: widget.onDelete,

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:escape/screens/diary_form_screen.dart';
-import 'package:escape/screens/diary_history_screen.dart';
-import 'package:escape/screens/home_temp.dart';
 
 class HomeMohammad extends StatefulWidget {
   const HomeMohammad({Key? key}) : super(key: key);
@@ -15,28 +12,6 @@ class _HomeState extends State<HomeMohammad> {
   bool groceriesChecked = false;
   bool runningChecked = false;
 
-  final List<Widget> _screens = [
-    TempHome(),
-    Container(
-      child: Center(
-        child: Text(
-          'Calendar Screen',
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
-    ),
-    Container(
-      child: Center(
-        child: Text('Profile Screen', style: TextStyle(fontSize: 40)),
-      ),
-    ),
-    DiaryHistory(),
-    Container(
-      child: Center(
-        child: Text('Settings Screen', style: TextStyle(fontSize: 40)),
-      ),
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -51,7 +26,7 @@ class _HomeState extends State<HomeMohammad> {
       appBar: AppBar(
         backgroundColor: Color(0xFF005174),
         title: Center(
-          child: Image.asset('assets/images/file.png', fit: BoxFit.cover, height: 50),
+          child: Image.asset('assets/iimages/file.png', fit: BoxFit.cover, height: 50),
         ),
         actions: [
           Icon(Icons.wb_sunny, color: Colors.yellow, size: 30),

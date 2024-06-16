@@ -26,13 +26,13 @@ class TriggerButton extends StatelessWidget {
         height: 80,
         child: ElevatedButton(
           style: ButtonStyle(
-            elevation: MaterialStateProperty.all<double>(2),
-            backgroundColor: MaterialStateProperty.all<Color>(
+            elevation: WidgetStateProperty.all<double>(2),
+            backgroundColor: WidgetStateProperty.all<Color>(
               buttonColor ?? Color(0xFF0F6C95),
             ),
 
             //FIXME: Remove depricated features and find new way for MaterialStateProperty
-            shape: MaterialStateProperty.all<OutlinedBorder>(
+            shape: WidgetStateProperty.all<OutlinedBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
