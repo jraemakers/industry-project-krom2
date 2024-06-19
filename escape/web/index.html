@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -34,16 +21,31 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = null;
+    const serviceWorkerVersion = '{{flutter_service_worker_version}}';
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
-</head>
-<body>
+
+  <!-- Add Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
   <script>
     window.addEventListener('load', function(ev) {
+      // Initialize Firebase after Flutter is loaded
+      var firebaseConfig = {
+        apiKey: "AIzaSyBzkkblZ1sZU-1dLdEiLvMC2Mzgvrelegk",
+        authDomain: "off-project-4ce00.firebaseapp.com",
+        projectId: "off-project-4ce00",
+        storageBucket: "off-project-4ce00.appspot.com",
+        messagingSenderId: "353199309752",
+        appId: "1:353199309752:android:645911d82643505210054d"
+      };
+      firebase.initializeApp(firebaseConfig);
+
       // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
+      _flutter.loader.load({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
@@ -55,5 +57,7 @@
       });
     });
   </script>
+</head>
+<body>
 </body>
 </html>

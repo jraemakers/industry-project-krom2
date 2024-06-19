@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -10,6 +12,11 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool rememberMe = false;
+  final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -20,6 +27,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   @override
   void dispose() {
     _tabController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -119,16 +129,18 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             style: TextStyle(fontSize: 14, color: Colors.grey[600]),
           ),
           const SizedBox(height: 10),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _emailController,
+            decoration: const InputDecoration(
               labelText: "Email",
               border: OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 10),
-          const TextField(
+          TextField(
+            controller: _passwordController,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Password",
               border: OutlineInputBorder(),
             ),
@@ -158,9 +170,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             ],
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, '/mohammed');
-            },
+            onPressed: _login,
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 50),
             ),
@@ -170,6 +180,19 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
         ],
       ),
     );
+  }
+
+  Future<void> _login() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Navigator.pushReplacementNamed(context, '/mohammed');
+    } catch (e) {
+      // Handle error (e.g., show a snackbar or dialog)
+      print('Error: $e');
+    }
   }
 
   Widget _buildCreateAccountForm(BuildContext context) {
@@ -187,8 +210,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             ),
           ),
           const SizedBox(height: 30),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _nameController,
+            decoration: const InputDecoration(
               labelText: "Name",
               labelStyle: TextStyle(color: Colors.black),
               enabledBorder: UnderlineInputBorder(
@@ -200,8 +224,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             ),
           ),
           const SizedBox(height: 20),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _emailController,
+            decoration: const InputDecoration(
               labelText: "Email",
               labelStyle: TextStyle(color: Colors.black),
               enabledBorder: UnderlineInputBorder(
@@ -213,9 +238,10 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
             ),
           ),
           const SizedBox(height: 20),
-          const TextField(
+          TextField(
+            controller: _passwordController,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Password",
               labelStyle: TextStyle(color: Colors.black),
               enabledBorder: UnderlineInputBorder(
@@ -235,9 +261,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
           const SizedBox(height: 30),
           Center(
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/mohammed');
-              },
+              onPressed: _createAccount,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
               ),
@@ -247,5 +271,25 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
         ],
       ),
     );
+  }
+
+  Future<void> _createAccount() async {
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      // Add user data to Firestore
+      await _firestore.collection('Account').doc(userCredential.user!.uid).set({
+        'Email': _emailController.text.trim(),
+        'UserName': _nameController.text.trim(),
+      });
+
+      Navigator.pushReplacementNamed(context, '/mohammed');
+    } catch (e) {
+      // Handle error (e.g., show a snackbar or dialog)
+      print('Error: $e');
+    }
   }
 }
