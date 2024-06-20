@@ -1,4 +1,5 @@
-import 'package:escape/screens/diary_form_screen.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:escape/screens/diary_history_screen.dart';
 import 'package:escape/screens/profile_screen.dart';
 import 'package:escape/screens/home_temp.dart';
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
     DiaryHistory(),
     Container(
         child: Center(
-            child: Text('Settings Screen', style: TextStyle(fontSize: 40)))),
+            child: const Text('Settings Screen', style: TextStyle(fontSize: 40)))),
   ];
 
   void _onItemTapped(int index) {

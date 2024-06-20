@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewPlanScreen extends StatefulWidget {
   @override
@@ -10,12 +11,58 @@ class _NewPlanScreenState extends State<NewPlanScreen> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
+  TextEditingController _noteController = TextEditingController();
+  TextEditingController _checklistItemController = TextEditingController();
+  List<Map<String, dynamic>> _checklist = [];
 
   @override
   void initState() {
     super.initState();
-    _dateController.text = "22-May-2024";
+    _dateController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
     _timeController.text = "16:00";
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        _dateController.text = DateFormat('dd-MM-yyyy').format(picked);
+      });
+    }
+  }
+
+  void _addChecklistItem() {
+    if (_checklistItemController.text.isNotEmpty) {
+      setState(() {
+        _checklist.add({
+          'title': _checklistItemController.text,
+          'completed': false,
+        });
+        _checklistItemController.clear();
+      });
+    }
+  }
+
+  void _removeChecklistItem(int index) {
+    setState(() {
+      _checklist.removeAt(index);
+    });
+  }
+
+  void _savePlan() {
+    Navigator.pop(context, {
+      'title': _titleController.text,
+      'date': _dateController.text,
+      'time': _timeController.text,
+      'location': _locationController.text,
+      'note': _noteController.text,
+      'checklist': _checklist,
+    });
   }
 
   @override
@@ -64,17 +111,22 @@ class _NewPlanScreenState extends State<NewPlanScreen> {
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             SizedBox(height: 8),
-            TextField(
-              controller: _dateController,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color(0xFF0088A3),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
+            GestureDetector(
+              onTap: () => _selectDate(context),
+              child: AbsorbPointer(
+                child: TextField(
+                  controller: _dateController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xFF0088A3),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                    suffixIcon: Icon(Icons.calendar_today, color: Colors.white),
+                  ),
                 ),
-                suffixIcon: Icon(Icons.calendar_today, color: Colors.white),
               ),
             ),
             SizedBox(height: 16),
@@ -116,52 +168,71 @@ class _NewPlanScreenState extends State<NewPlanScreen> {
             ),
             SizedBox(height: 16),
             Text(
-              'Do not repeat',
+              'Note',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-              decoration: BoxDecoration(
-                color: Color(0xFF0088A3),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Do not repeat',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  Icon(Icons.arrow_drop_down, color: Colors.white),
-                ],
+            TextField(
+              controller: _noteController,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color(0xFF0088A3),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
               ),
             ),
             SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-              decoration: BoxDecoration(
-                color: Color(0xFF0088A3),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Add Checklist',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+            Text(
+              'Checklist',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _checklistItemController,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xFF0088A3),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
-                  Icon(Icons.check_circle, color: Colors.white),
-                ],
+                ),
+                IconButton(
+                  icon: Icon(Icons.add, color: Colors.white),
+                  onPressed: _addChecklistItem,
+                ),
+              ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _checklist.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      _checklist[index]['title'],
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _removeChecklistItem(index),
+                    ),
+                  );
+                },
               ),
             ),
-            Spacer(),
             Container(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _savePlan,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF0088A3),
                   padding: EdgeInsets.symmetric(vertical: 16),
