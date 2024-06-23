@@ -1,63 +1,22 @@
+import 'package:escape/screens/calendar_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:escape/screens/diary_form_screen.dart';
-import 'package:escape/screens/diary_history_screen.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class FixHome extends StatefulWidget {
+  const FixHome({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _FixHomeState createState() => _FixHomeState();
 }
 
-class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
+class _FixHomeState extends State<FixHome> {
   bool groceriesChecked = false;
   bool runningChecked = false;
-
-  final List<Widget> _screens = [
-    Home(),
-    Container(
-      child: Center(
-        child: Text(
-          'Calendar Screen',
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
-    ),
-    Container(
-      child: Center(
-        child: Text('Profile Screen', style: TextStyle(fontSize: 40)),
-      ),
-    ),
-    DiaryHistory(),
-    Container(
-      child: Center(
-        child: Text('Settings Screen', style: TextStyle(fontSize: 40)),
-      ),
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF005174),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF005174),
-        title: Center(
-          child: Image.asset('assets/images/file.png',
-              fit: BoxFit.cover, height: 50),
-        ),
-        actions: [
-          Icon(Icons.wb_sunny, color: Colors.yellow, size: 30),
-          SizedBox(width: 10),
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -234,39 +193,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         child: const Icon(Icons.add, color: Color(0xFF005174)),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF005174),
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Color(0xFFFEA655),
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SizedBox.shrink(),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
-          ),
-        ],
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
@@ -439,8 +366,11 @@ class AddDialog extends StatelessWidget {
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.pushNamed(context, '/new-plan');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CalendarFormScreen()),
+                  );
                 },
                 child: const Text(
                   'New Plan',
@@ -449,10 +379,18 @@ class AddDialog extends StatelessWidget {
                 ),
               ),
               const Divider(color: Colors.white),
-              const Text(
-                'New Trigger',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-                textAlign: TextAlign.center,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyForm()),
+                  );
+                },
+                child: const Text(
+                  'New Journal',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
