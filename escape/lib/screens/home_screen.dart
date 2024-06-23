@@ -1,5 +1,6 @@
 import 'package:escape/screens/diary_history_screen.dart';
 import 'package:escape/screens/new_fix_home_screen.dart';
+import 'package:escape/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:escape/screens/calendar_screen.dart';
 
@@ -25,14 +26,7 @@ class _HomeState extends State<Home> {
         ),
       ),
     ),
-    Container(
-      child: Center(
-        child: Text(
-          'Settings Screen',
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
-    ),
+    SettingScreen(),
   ];
 
   void _onItemTapped(int index) {
