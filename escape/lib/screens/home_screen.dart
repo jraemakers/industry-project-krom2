@@ -1,5 +1,6 @@
 import 'package:escape/screens/diary_history_screen.dart';
 import 'package:escape/screens/new_fix_home_screen.dart';
+import 'package:escape/screens/overload_overview_screen.dart';
 import 'package:escape/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:escape/screens/calendar_screen.dart';
@@ -18,14 +19,7 @@ class _HomeState extends State<Home> {
     FixHome(),
     CalendarScreen(),
     DiaryHistory(),
-    Container(
-      child: Center(
-        child: Text(
-          'Statistics Screen',
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
-    ),
+    OverloadOverview(),
     SettingScreen(),
   ];
 
