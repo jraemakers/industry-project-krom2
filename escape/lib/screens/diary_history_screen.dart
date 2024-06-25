@@ -1,7 +1,9 @@
+import 'package:escape/screens/overload_journal_display_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:escape/models/SensoryOverloadDiary.dart';
+import 'package:intl/intl.dart';
 
 class DiaryHistory extends StatefulWidget {
   @override
@@ -11,11 +13,16 @@ class DiaryHistory extends StatefulWidget {
 class _DiaryHistoryState extends State<DiaryHistory> {
   late SharedPreferences _prefs;
   List<SenosoryOverloadDiary> _sensoryOverloadList = [];
+  List<SenosoryOverloadDiary> _filteredSensoryOverloadList = [];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _loadData();
+    _searchController.addListener(() {
+      _filter(_searchController.text);
+    });
   }
 
   Future<void> _loadData() async {
@@ -26,92 +33,137 @@ class _DiaryHistoryState extends State<DiaryHistory> {
       setState(() {
         _sensoryOverloadList =
             list.map((model) => SenosoryOverloadDiary.fromJson(model)).toList();
+        _filteredSensoryOverloadList = _sensoryOverloadList;
       });
     }
+  }
+
+  void _filter(String searchText) {
+    setState(() {
+      if (searchText.isEmpty) {
+        _filteredSensoryOverloadList = _sensoryOverloadList;
+      } else {
+        _filteredSensoryOverloadList = _sensoryOverloadList
+            .where((item) =>
+                item.title.toLowerCase().contains(searchText.toLowerCase()))
+            .toList();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 81, 116, 1.0),
-      body: Stack(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListView(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 15, top: 10),
-                      alignment: Alignment.centerLeft,
-                      child: Icon(
-                        Icons.arrow_back,
+          Container(
+            margin: EdgeInsets.only(left: 20),
+            child: Text(
+              'Journal Log',
+              style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 25),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                              suffixIcon: Icon(
+                                Icons.search,
+                                color: Colors.white,
+                                size: 26,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(80, 153, 185, 0.33)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)),
+                              ),
+                              filled: true,
+                              fillColor: Color.fromRGBO(0, 81, 116, 1),
+                              hintText: 'Search',
+                              hintStyle: const TextStyle(
+                                color: Color.fromARGB(255, 185, 180, 180),
+                                fontWeight: FontWeight.w100,
+                                fontSize: 18,
+                              ),
+                              labelStyle: TextStyle(color: Colors.white),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20.0)),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Icon(
+                        Icons.filter_list,
                         color: Colors.white,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(left: 15, right: 15, top: 10),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Journal Log',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                    Color.fromARGB(186, 33, 169, 227),
-                                  ),
-                                  padding: MaterialStateProperty.all<
-                                          EdgeInsetsGeometry>(
-                                      EdgeInsets.only(left: 10, right: 10)),
-                                  shape:
-                                      MaterialStateProperty.all<OutlinedBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
-                                    ),
-                                  ),
-                                ),
-                                //TODO: Go to overview(Navigation)
-                                onPressed: () {},
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.insert_chart,
-                                      color: Color.fromARGB(255, 237, 239, 241),
-                                    ),
-                                    Text(
-                                      'Overview',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                          Icon(Icons.filter_list, color: Colors.white)
-                        ],
-                      ),
-                    ),
-                  ],
+                        size: 30,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _sensoryOverloadList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var reversedList = _sensoryOverloadList.reversed.toList();
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(15, 108, 149, 0.5),
-                      borderRadius: BorderRadius.circular(10.0),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          //TODO: Add the button when needed
+
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: _filteredSensoryOverloadList.length,
+              itemBuilder: (BuildContext context, int index) {
+                var reversedList =
+                    _filteredSensoryOverloadList.reversed.toList();
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 5.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      SenosoryOverloadDiary d = reversedList[index];
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              OverloadJournalDisplay(diary: d),
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all<double>(0),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromRGBO(15, 108, 149, 0.5),
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,14 +176,15 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                '${_sensoryOverloadList[index].date.substring(8, 10)}',
+                                '${reversedList[index].date.substring(8, 10)}',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 30,
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                  '${_sensoryOverloadList[index].date.substring(0, 7)}',
+                                  '${getMonthNameFromString(reversedList[index].date)} '
+                                  '${reversedList[index].date.substring(0, 4)}',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12)),
                             ],
@@ -171,7 +224,7 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '10:45',
+                                '${reversedList[index].date.substring(11, 16)}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 12,
@@ -182,13 +235,18 @@ class _DiaryHistoryState extends State<DiaryHistory> {
                         ),
                       ],
                     ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+String getMonthNameFromString(String dateString) {
+  DateTime date = DateTime.parse(dateString);
+  return DateFormat.MMMM().format(date);
 }

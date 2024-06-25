@@ -1,7 +1,9 @@
-import 'package:escape/screens/diary_form_screen.dart';
 import 'package:escape/screens/diary_history_screen.dart';
-import 'package:escape/screens/home_temp.dart';
+import 'package:escape/screens/new_fix_home_screen.dart';
+import 'package:escape/screens/overload_overview_screen.dart';
+import 'package:escape/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:escape/screens/calendar_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,20 +16,11 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    TempHome(),
-    Container(
-        child: Center(
-            child: Text(
-      'Calendar Screen',
-      style: TextStyle(fontSize: 40),
-    ))),
-    Container(
-        child: Center(
-            child: Text('Profile Screen', style: TextStyle(fontSize: 40)))),
+    FixHome(),
+    CalendarScreen(),
     DiaryHistory(),
-    Container(
-        child: Center(
-            child: Text('Settings Screen', style: TextStyle(fontSize: 40)))),
+    OverloadOverview(),
+    SettingScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -53,10 +46,12 @@ class _HomeState extends State<Home> {
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF005174),
+        backgroundColor: Color.fromARGB(255, 2, 78, 110),
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: Colors.white,
         selectedItemColor: Color(0xFFFEA655),
+        selectedFontSize: 12,
+        unselectedFontSize: 10,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
@@ -64,23 +59,23 @@ class _HomeState extends State<Home> {
             icon: Icon(
               Icons.home,
             ),
-            label: '',
+            label: 'My day',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
-            label: '',
+            label: 'Plan',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
+            icon: Icon(Icons.notes),
+            label: 'Log',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: '',
+            icon: Icon(Icons.bar_chart),
+            label: 'Stat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: '',
+            label: 'Settings',
           ),
         ],
       ),

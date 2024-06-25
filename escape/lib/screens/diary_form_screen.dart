@@ -1,6 +1,7 @@
 import 'package:escape/custom_widgets/diary_input_field.dart';
 import 'package:escape/custom_widgets/trigger_button.dart';
 import 'package:escape/models/SensoryOverloadDiary.dart';
+import 'package:escape/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -47,8 +48,11 @@ class DiaryForm extends State<MyForm> {
     SenosoryOverloadDiary newSensoryOverload = SenosoryOverloadDiary(
       title: _titleController.text,
       triggers: _triggersList,
+      // date:
+      //     '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}',
       date:
-          '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}',
+          '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().hour.toString().padLeft(2, '0')}:${DateTime.now().minute.toString().padLeft(2, '0')}:${DateTime.now().second.toString().padLeft(2, '0')}',
+
       duration: int.tryParse(_durationController.text) ?? 0,
       diaryNote: _diaryController.text,
     );
@@ -58,8 +62,14 @@ class DiaryForm extends State<MyForm> {
       _titleController.clear();
       _durationController.clear();
       _diaryController.clear();
+      // _triggersList.clear();
     });
     _saveData();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()),
+    );
   }
 
 //FIXME: change the method name
@@ -105,9 +115,12 @@ class DiaryForm extends State<MyForm> {
                   height: 30,
                 ),
 
-                Text(
+                const Text(
                   'Sensory Overload Journal',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 21,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),
                 DiaryInputField(
@@ -217,9 +230,6 @@ class DiaryForm extends State<MyForm> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 15,
-                ),
                 //FIXME: update this input
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
